@@ -1,1 +1,2 @@
 # APF
+Automated Personal Finance

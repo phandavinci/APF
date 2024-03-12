@@ -5,5 +5,9 @@ import os
 transactions = os.path.join('env','transactions.csv')
 
 df= pd.DataFrame(pd.read_csv(transactions))
+print(df.columns)
 
-print(df.head())
+debitRecords = df[df['Debit Amount       ']==0.00] 
+creditRecords = df[df['Debit Amount       ']==0.00]
+
+print(creditRecords, debitRecords)

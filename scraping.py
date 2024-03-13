@@ -77,7 +77,7 @@ try:
     selectTypeDropdown.click()
     print("Clicked select type dropdown.")
 
-    selectType = driver.find_element(By.ID, "ui-select-choices-row-1-1")
+    selectType = driver.find_element(By.ID, "ui-select-choices-row-1-3")
     selectType.click()
     print("Selected type.")
 

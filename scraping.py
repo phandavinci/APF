@@ -126,13 +126,10 @@ else:
 
 env_files = os.listdir(env_directory)
 
+if os.path.exists(os.path.join(env_directory, 'transactions.csv')):
+    os.remove(os.path.join(env_directory, 'transactions.csv'))
 transaction_files = [file for file in env_files if file.endswith('.csv')]
+os.rename(os.path.join(env_directory, transaction_files[0]),
+        os.path.join(env_directory, 'transactions.csv'))
+print("Transactions file renamed successfully.")
 
-if transaction_files:
-    if os.path.exists(os.path.join(env_directory, 'transactions.csv')):
-        os.remove(os.path.join(env_directory, 'transactions.csv'))
-    os.rename(os.path.join(env_directory, transaction_files[0]),
-              os.path.join(env_directory, 'transactions.csv'))
-    print("Transactions file renamed successfully.")
-else:
-    print("No transaction file found in the 'env' folder.")

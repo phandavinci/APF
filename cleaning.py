@@ -28,4 +28,7 @@ print("CSV file updated successfully.")
 debitRecords = df[df['Credit Amount']==0.00] 
 creditRecords = df[df['Debit Amount']==0.00]
 
+debitRecords.to_csv(os.path.join('env', 'debitRecords'))
+creditRecords.to_csv(os.path.join('env', 'creditRecords'))
+
 print(creditRecords, debitRecords)

@@ -15,9 +15,10 @@ def split_narration(narration):
     parts = narration.split('-')
     if len(parts) > 6:
         parts[2]+='-'+parts.pop(3)
+    
     return parts
 
-df[['Type', 'Name', 'ID', 'BankID', 'RefNo.', 'Comments']] = df['Narration'].apply(lambda x: pd.Series(split_narration(x)))
+df[['Type', 'Name', 'ID', 'BankID', 'RefNo.', 'Comments', 'Category', 'Priority']] = df['Narration'].apply(lambda x: pd.Series(split_narration(x)))
 
 df = df.drop(columns=['Narration', 'RefNo.', 'Value Dat'])
 

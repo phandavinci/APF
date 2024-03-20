@@ -17,7 +17,7 @@ def split_narration(narration):
         parts[2]+='-'+parts.pop(3)
     return parts
 
-#spliting the narration
+# removed the comments
 
 df[['Type', 'Name', 'ID', 'BankID', 'RefNo.', 'Comments', 'Category']] = df['Narration'].apply(lambda x: pd.Series(split_narration(x)))
 

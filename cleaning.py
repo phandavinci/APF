@@ -10,13 +10,13 @@ df = pd.read_csv(transactions)
 df.columns = df.columns.str.strip()
 df = df.applymap(lambda x: x.strip() if isinstance(x, str) else x)
 df.to_csv(transactions, index=False)
-
+#splitting the narration
 def split_narration(narration):
     parts = narration.split('-')
     if len(parts) > 6:
         parts[2]+='-'+parts.pop(3)
     return parts
-
+#splitting the comments
 def split_comment(df, comment):
     #xxyy&comment
     #xx - priority

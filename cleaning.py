@@ -52,13 +52,13 @@ df.to_csv(transactions, index=False)
 
 print("CSV file updated successfully.")
 
-debitRecords = df[df['Credit Amount']==0.00] 
-creditRecords = df[df['Debit Amount']==0.00]
+# debitRecords = df[df['Credit Amount']==0.00] 
+# creditRecords = df[df['Debit Amount']==0.00]
 
-debitRecords = debitRecords.drop(columns='Credit Amount')
-creditRecords = creditRecords.drop(columns='Debit Amount')
+# debitRecords = debitRecords.drop(columns='Credit Amount')
+# creditRecords = creditRecords.drop(columns='Debit Amount')
 
-debitRecords.to_csv(os.path.join('env', 'debitRecords.csv'))
-creditRecords.to_csv(os.path.join('env', 'creditRecords.csv'))
+# debitRecords.to_csv(os.path.join('env', 'debitRecords.csv'))
+# creditRecords.to_csv(os.path.join('env', 'creditRecords.csv'))
 
-print(creditRecords, debitRecords)
+# print(creditRecords, debitRecords)

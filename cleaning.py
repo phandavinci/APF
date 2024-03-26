@@ -21,7 +21,7 @@ def split_comment(df, comment):
     #xx - priority
     #yy - types - s, l, b, o, c, m, i
     ## FL(last km)&(petrollitres) - fuel
-    dic = {'s':"Split", 'l': 'Lend', 'b': 'Borrow', 'o': 'Others', 'c': 'Credited', 'm': 'Myself', 'i':'Installment'}
+    dic = {'s':"Split", 'l': 'Lend', 'b': 'Borrow', 'o': 'Others', 'c': 'Credited', 'm': 'Myself', 'i':'Installment', 's':'Savings'}
     s = [i for i in comment.strip().lower().split('lbl') if i]
     if len(s)==0: return [None]*3
     if len(s)!=2: return ([None]*2)+[comment]

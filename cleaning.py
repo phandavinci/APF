@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
 import os
-import scraping
 
 transactions = os.path.join('env','transactions.csv')
 
@@ -23,20 +22,25 @@ def split_comment(df, comment):
     #yy - types - s, l, b, o, c, m, i
     ## FL(last km)&(petrollitres) - fuel
     dic = {'s':"Split", 'l': 'Lend', 'b': 'Borrow', 'o': 'Others', 'c': 'Credited', 'm': 'Myself', 'i':'Installment'}
-    s = comment.split('&')
+    s = [i for i in comment.strip().lower().split('lbl') if i]
     if len(s)==0: return [None]*3
-    if len(s)==1: return ([None]*2)+s
-    parts = [s[0][:2], s[0][2:],s[1]]
-    if parts[0]=='FL':
-        parts[1] = 'LK: '+parts[1]
-        parts[2] = parts[2]+'ltr(s)'
-        return parts
-    if parts[1][0]=='s':
-        div = int(parts[1][1])
-        df['Debit Amount'] = int(df['Debit Amount'])/div
-        parts[1] = dic[parts[1]]+' of '+str(div)
-        return parts
-    parts[1] = dic[parts[1]]
+    if len(s)!=2: return ([None]*2)+[comment]
+    print(s)
+    try:
+        parts = [s[0][:2], s[0][2:],s[1]]
+        if parts[0]=='fl':
+            parts[1] = 'LK: '+parts[1]
+            parts[2] = parts[2]+'ltr(s)'
+            return parts
+        if parts[1][0]=='s':
+            div = int(parts[1][1])
+            df['Debit Amount'] = int(df['Debit Amount'])/div
+            parts[1] = dic[parts[1]]+' of '+str(div)
+            return parts
+        parts[1] = dic[parts[1]]
+        parts = [i.capitalize() for i in parts]
+    except:
+        return ([None]*2)+[comment]
     return parts
 
 

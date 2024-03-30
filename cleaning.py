@@ -14,6 +14,10 @@ df.to_csv(transactions, index=False)
 #splitting the narration
 def split_narration(narration):
     parts = narration.split('-')
+    if parts[0]=='A2AINT01':
+        return [parts[0], parts[1], None, None, None, parts[-1]]
+    if parts[0]=='NWD':
+        return [parts[0], parts[2], None, parts[1], None, 'ATM']
     if len(parts) > 6:
         parts[2]+='-'+parts.pop(3)
     return parts

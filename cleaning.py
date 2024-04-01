@@ -30,9 +30,10 @@ def split_comment(df, comment):
     dic = {'s':"Split", 'l': 'Lend', 'b': 'Borrow', 'o': 'Others', 'c': 'Credited', 'm': 'Myself', 'i':'Installment', 's':'Savings', 'n':'Need', 'w':'Want', 'd':'Desire'}
     s = [i for i in comment.strip().lower().split('lbl') if i]
     if len(s)==0: return [None]*3
-    if len(s)!=2 or (s[0][0] != 'n' and 'w' and 'd' and 'f') : return ([None]*2)+[comment]
+    if len(s)!=2 or s[0][0] not in set(['n', 'w', 'd', 'f']) : return ([None]*2)+[comment]
     try:
-        parts = [s[0][0], s[0][1],s[1]]
+        if len(s[0])==1: parts = [s[0], 'm', s[1]]
+        else: parts = [s[0][0], s[0][1],s[1]]
         if parts[0]=='f':
             parts[1] = parts[1]+'ltr(s)'
             parts[2] = 'LK: '+parts[2]

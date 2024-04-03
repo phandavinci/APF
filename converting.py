@@ -14,7 +14,8 @@ if os.path.exists(transactions):
         excel_data = pd.read_excel(transcationsExcel)
 
         print("Got the file")
-        new_rows = pd.concat([excel_data, csv_data]).drop_duplicates(keep=False)
+        new_rows = pd.concat([excel_data, csv_data]).drop_duplicates(subset=['Chq/Ref Number'], keep=False)
+
 
         print("Updating the new rows")
         combined_rows = pd.concat([excel_data, new_rows], ignore_index=True)

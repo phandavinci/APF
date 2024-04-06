@@ -40,7 +40,8 @@ def split_comment(row):
                 div = int(s[0][2])
                 row['Debit Amount'] /= div
                 parts = [s[0][0], dic['s']+'-'+str(div), s[1]]
-            
+            elif s[0]=='f': 
+                parts = [dic['f'], 'LK: '+s[0][1:], s[1]+' ltr(s)']
         else:
             parts = [None, dic[s[0]], s[1]]
         parts = [i.capitalize() if i else None for i in parts]

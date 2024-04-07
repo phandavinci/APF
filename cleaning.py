@@ -35,13 +35,13 @@ def split_comment(row):
     try:
         if s[0][0] in set(['n', 'w', 'd', 'f']):
             if len(s[0])==1: 
-                parts = [s[0], dic['m'], s[1]]
+                parts = [dic[s[0]], dic['m'], s[1]]
             elif len(s[0])>1 and s[0][1]=='s':
                 div = int(s[0][2])
                 row['Debit Amount'] /= div
-                parts = [s[0][0], dic['s']+'-'+str(div), s[1]]
+                parts = [dic[s[0][0]], dic['s']+'-'+str(div), s[1]]
             elif s[0]=='f': 
-                parts = [dic['f'], 'LK: '+s[0][1:], s[1]+' ltr(s)']
+                parts = [dic['f'], 'LK: '+s[0][1:] if s[0][1:] else None, s[1]+' ltr(s)' if s[1] else None]
         else:
             parts = [None, dic[s[0]], s[1]]
         parts = [i.capitalize() if i else None for i in parts]

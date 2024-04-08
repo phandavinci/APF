@@ -7,6 +7,7 @@ import time
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from dotenv import dotenv_values
+import platform
 
 env = dotenv_values('env/.env')
 
@@ -15,12 +16,19 @@ PASSWORD = env.get("PASSWORD")
 
 current_directory = os.getcwd()
 download_directory = current_directory
+current_os = platform.system()
 
 chrome_options = Options()
 chrome_options.add_argument(f"--download.default_directory={download_directory}")
 chrome_options.add_argument("--headless")
 
-chrome_driver_path = "/usr/lib/chromium-browser/chromedriver"
+if current_os == "Windows":
+    chrome_driver_path = "chromedriver.exe"
+elif current_os=='Linux':
+    chrome_driver_path = "/usr/lib/chromium-browser/chromedriver"
+else:
+    print(f"Unsupported operating system: {current_os}")
+
 
 driver = webdriver.Chrome(service=Service(executable_path=chrome_driver_path), options=chrome_options)
 

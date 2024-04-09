@@ -34,7 +34,7 @@ def split_comment(row):
     if len(s)!=2 or s[0][0] not in dic : return ([None]*2)+[comment]
     try:
         if s[0][0] in set(['n', 'w', 'd', 'f']):
-            if len(s[0])==1: 
+            if len(s[0])==1 and s[0][0]!='f': 
                 parts = [dic[s[0]], dic['m'], s[1]]
             elif len(s[0])>1 and s[0][1]=='s':
                 div = int(s[0][2])

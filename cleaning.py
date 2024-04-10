@@ -28,7 +28,7 @@ def split_comment(row):
     #yy - types - s, l, b, o, c, m, i
     ## f(last km)lbl(petrollitres) - fuel
     comment = row['Comments']
-    dic = {'s':"Split", 'l': 'Lend', 'b': 'Borrow', 'o': 'Others', 'c': 'Credited', 'm': 'Myself', 'h':'Holdings', 'n':'Need', 'w':'Want', 'd':'Desire', 'f': 'Fuel'}
+    dic = {'s':"Split", 'l': 'Lend', 'b': 'Borrowed', 'o': 'Others', 'c': 'Credited', 'm': 'Myself', 'h':'Holdings', 'n':'Need', 'w':'Want', 'd':'Desire', 'f': 'Fuel'}
     s = [i for i in comment.strip().lower().split('lbl') if i]
     if len(s)==0: return [None]*3
     if len(s)!=2 or s[0][0] not in dic : return ([None]*2)+[comment]

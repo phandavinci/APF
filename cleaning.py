@@ -55,7 +55,7 @@ def split_comment(row):
 
 df[['TransferType', 'Name', 'ID', 'BankID', 'RefNo.', 'Comments']] = df['Narration'].apply(lambda x: pd.Series(split_narration(x)))
 
-df[['Debit Amount', 'Priority', 'TypeOfPayment', 'Comment']] = df.apply(lambda row: pd.Series(split_comment(row)), axis=1)
+df[['Debit Amount', 'Priority', 'TypeOfPayment', 'Comment', 'Reviewed']] = df.apply(lambda row: pd.Series(split_comment(row)), axis=1)
 
 
 df = df.drop(columns=['Narration', 'RefNo.', 'Value Dat', 'Comments'])

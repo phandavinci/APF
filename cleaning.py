@@ -42,6 +42,8 @@ def split_comment(row):
                 parts = [dic[s[0][0]], dic['s']+'-'+str(div), s[1]]
             elif s[0]=='f': 
                 parts = [dic['f'], 'LK: '+s[0][1:] if s[0][1:] else None, s[1]+' ltr(s)' if s[1] else None]
+            else:
+                parts = [dic[s[0]], None, s[1]]
         else:
             parts = [None, dic[s[0]], s[1]]
         parts = [i.capitalize() if i else None for i in parts]

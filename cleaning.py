@@ -52,7 +52,7 @@ def split_comment(row):
         print(e)
         return ([None]*2)+[comment]
     if any(i==None for i in parts): reviewed=False
-    return [row['Debit Amount']]+parts+[reviewed] #added review
+    return [row['Debit Amount']]+parts+[reviewed]
 
 
 

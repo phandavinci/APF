@@ -37,10 +37,7 @@ try:
     driver.get("https://netportal.hdfcbank.com/login")
     print("Navigated to HDFC Bank website.")
 
-    username_field = WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located((By.ID, "liabiltyLoginCustId"))
-    )
-
+    username_field = driver.find_element(By.ID, "liabiltyLoginCustId")
     username_field.send_keys(USERNAME)
     print("Entered username.")
 

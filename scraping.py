@@ -8,13 +8,12 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from dotenv import dotenv_values
 import platform
-
-env = dotenv_values('env/.env')
+current_directory = os.getcwd()
+env = dotenv_values(os.path.join(current_directory, 'env', '.env'))
 
 USERNAME = env.get("USERNAME")
 PASSWORD = env.get("PASSWORD")
 
-current_directory = os.getcwd()
 download_directory = current_directory
 current_os = platform.system()
 
@@ -37,7 +36,9 @@ try:
     driver.get("https://netportal.hdfcbank.com/login")
     print("Navigated to HDFC Bank website.")
 
-    username_field = driver.find_element(By.ID, "liabiltyLoginCustId")
+    username_field = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.ID, "liabiltyLoginCustId"))
+    )
     username_field.send_keys(USERNAME)
     print("Entered username.")
 

@@ -27,31 +27,39 @@ def split_comment(row):
     #xx - priority - n, w, d
     #yy - types - s, l, b, o, c, m, i
     ## f(last km)lbl(petrollitres) - fuel
+    if row['Credit Amount']>0: return [None, None, None, None, None]
     comment = row['Comments']
     reviewed = True
     dic = {'s':"Split", 'l': 'Lend', 'b': 'Borrowed', 'o': 'Others', 'c': 'Credited', 'm': 'Myself', 'h':'Holdings', 'n':'Need', 'w':'Want', 'd':'Desire', 'f': 'Fuel'}
     s = [i for i in comment.strip().lower().split('lbl') if i]
-    if len(s)==0: return [None]*3
-    if len(s)!=2 or s[0][0] not in dic : return ([None]*2)+[comment]
-    try:
-        if s[0][0] in set(['n', 'w', 'd', 'f']):
-            if len(s[0])==1 and s[0][0]!='f': 
-                parts = [dic[s[0]], dic['m'], s[1]]
-            elif len(s[0])>1 and s[0][1]=='s':
-                div = int(s[0][2])
-                row['Debit Amount'] /= div
-                parts = [dic[s[0][0]], dic['s']+'-'+str(div), s[1]]
-            elif s[0]=='f': 
-                parts = [dic['f'], 'LK: '+s[0][1:] if s[0][1:] else None, s[1]+' ltr(s)' if s[1] else None]
+    if len(s)==0:
+        parts = [None]*3
+        reviewed = False
+    elif len(s)!=2 or s[0][0] not in dic:
+        parts = ([None]*2)+[comment]
+        reviewed = False
+    else:
+        try:
+            if s[0][0] in set(['n', 'w', 'd', 'f']):
+                if len(s[0])==1 and s[0][0]!='f': 
+                    parts = [dic[s[0]], dic['m'], s[1]]
+                elif len(s[0])>1 and s[0][1]=='s':
+                    div = int(s[0][2])
+                    row['Debit Amount'] /= div
+                    parts = [dic[s[0][0]], dic['s']+'-'+str(div), s[1]]
+                elif s[0]=='f': 
+                    parts = [dic['f'], 'LK: '+s[0][1:] if s[0][1:] else None, s[1]+' ltr(s)' if s[1] else None]
+                    if any(i==None for i in parts): 
+                        reviewed = False
+                else:
+                    parts = [dic[s[0]], None, s[1]]
             else:
-                parts = [dic[s[0]], None, s[1]]
-        else:
-            parts = [None, dic[s[0]], s[1]]
-        parts = [i.capitalize() if i else None for i in parts]
-    except Exception as e:
-        print(e)
-        return ([None]*2)+[comment]
-    if any(i==None for i in parts): reviewed=False
+                parts = [None, dic[s[0]], s[1]]
+            parts = [i.capitalize() if i else None for i in parts]
+        except Exception as e:
+            print(e)
+            parts = ([None]*2)+[comment]
+            reviewed = False
     return [row['Debit Amount']]+parts+[reviewed]
 
 
